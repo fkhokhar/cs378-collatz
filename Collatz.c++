@@ -34,7 +34,6 @@ pair<int, int> collatz_read (const string& s) {
 // ------------
 
 int collatz_eval (int i, int j) {
-    // <your code>
 
     int max = 0;
     int counter = 0;
