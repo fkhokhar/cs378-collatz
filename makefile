@@ -1,9 +1,4 @@
-# This file is named "makefile.sample".
-# Rename it "makefile".
-# http://www.gnu.org/software/make/
-
 FILES :=                              \
-    .gitignore                        \
     .travis.yml                       \
     collatz-tests/EID-RunCollatz.in   \
     collatz-tests/EID-RunCollatz.out  \
@@ -41,15 +36,13 @@ check:
     done
 
 clean:
-	rm -f  *.gcda
-	rm -f  *.gcno
-	rm -f  *.gcov
-	rm -f  Collatz.log
-	rm -f  RunCollatz
-	rm -f  RunCollatz.out
-	rm -f  TestCollatz
-	rm -f  TestCollatz.out
-	rm -rf html
+	rm -f *.gcda
+	rm -f *.gcno
+	rm -f *.gcov
+	rm -f RunCollatz
+	rm -f RunCollatz.out
+	rm -f TestCollatz
+	rm -f TestCollatz.out
 
 config:
 	git config -l
@@ -72,7 +65,9 @@ RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
 	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
 
 RunCollatz.out: RunCollatz
+	cat RunCollatz.in
 	./RunCollatz < RunCollatz.in > RunCollatz.out
+	cat RunCollatz.out
 
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
@@ -81,3 +76,4 @@ TestCollatz.out: TestCollatz
 	$(VALGRIND) ./TestCollatz  >  TestCollatz.out 2>&1
 	$(GCOV) -b Collatz.c++     >> TestCollatz.out
 	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out
+	cat TestCollatz.out
