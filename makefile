@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  :=                              \
+=======
+FILES :=                              \
+>>>>>>> dev-branch
     .travis.yml                       \
     collatz-tests/EID-RunCollatz.in   \
     collatz-tests/EID-RunCollatz.out  \

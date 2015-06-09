@@ -2,6 +2,7 @@
 # Rename it ".gitignore".
 # http://git-scm.com/docs/gitignore/
 
+.gitignore
 *.gcda
 *.gcno
 *.gcov
