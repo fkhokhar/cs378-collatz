@@ -1,7 +1,3 @@
-# This file is named "travis.sample.yml".
-# Rename it ".travis.yml".
-# http://docs.travis-ci.com/user/build-configuration/
-
 sudo: required
 
 language: cpp
@@ -15,34 +11,38 @@ before_install:
 install:
     - sudo apt-get install clang-3.4
     - sudo apt-get install g++-4.8
-    - sudo apt-get install libboost-all-dev
-    - sudo apt-get install doxygen
     - sudo apt-get install libgtest-dev
     - cd /usr/src/gtest
     - sudo cmake .
     - sudo make
     - sudo mv libg* /usr/local/lib/
     - cd -
+    - sudo apt-get install libboost-all-dev
     - sudo apt-get install valgrind
+    - sudo apt-get install doxygen
 
 before_script:
     - uname -a
-    - set
-    - clang++ -v 2>&1 | grep version
-    - g++     -v 2>&1 | grep version
-    - g++-4.8 -v 2>&1 | grep version
-    - head -1 /usr/src/gtest/CHANGES
-    - gcov     -version | grep version
-    - gcov-4.8 -version | grep version
-    - -valgrind --version
+    - printenv
+    - clang++ --version 2>&1 | grep clang
+    - g++-4.8 --version 2>&1 | grep g++-4.8
+    - dpkg -l libgtest-dev | grep libgtest
+    - gcov-4.6 --version | grep gcov
+    - gcov-4.8 --version | grep gcov
+    - valgrind --version
     - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
-    - doxygen -v
+    - doxygen --version
 
 script:
-    - make collatz-tests
-    - make html
+    - date
+    - ls -al
     - make Collatz.log
+    - make collatz-tests
+    - ls -al
+    - make html
+    - ls -al
     - make test
     - make clean
     - make test CXX=clang++
+    - ls -al
     - make check
