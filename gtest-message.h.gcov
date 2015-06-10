@@ -53,205 +53,200 @@
         -:   48:
         -:   49:#include <limits>
         -:   50:
-        -:   51:#include "gtest/internal/gtest-port.h"
-        -:   52:
-        -:   53:// Ensures that there is at least one operator<< in the global namespace.
-        -:   54:// See Message& operator<<(...) below for why.
-        -:   55:void operator<<(const testing::internal::Secret&, int);
-        -:   56:
-        -:   57:namespace testing {
-        -:   58:
-        -:   59:// The Message class works like an ostream repeater.
-        -:   60://
-        -:   61:// Typical usage:
-        -:   62://
-        -:   63://   1. You stream a bunch of values to a Message object.
-        -:   64://      It will remember the text in a stringstream.
-        -:   65://   2. Then you stream the Message object to an ostream.
-        -:   66://      This causes the text in the Message to be streamed
-        -:   67://      to the ostream.
-        -:   68://
-        -:   69:// For example;
-        -:   70://
-        -:   71://   testing::Message foo;
-        -:   72://   foo << 1 << " != " << 2;
-        -:   73://   std::cout << foo;
-        -:   74://
-        -:   75:// will print "1 != 2".
+        -:   51:#include "gtest/internal/gtest-string.h"
+        -:   52:#include "gtest/internal/gtest-internal.h"
+        -:   53:
+        -:   54:namespace testing {
+        -:   55:
+        -:   56:// The Message class works like an ostream repeater.
+        -:   57://
+        -:   58:// Typical usage:
+        -:   59://
+        -:   60://   1. You stream a bunch of values to a Message object.
+        -:   61://      It will remember the text in a stringstream.
+        -:   62://   2. Then you stream the Message object to an ostream.
+        -:   63://      This causes the text in the Message to be streamed
+        -:   64://      to the ostream.
+        -:   65://
+        -:   66:// For example;
+        -:   67://
+        -:   68://   testing::Message foo;
+        -:   69://   foo << 1 << " != " << 2;
+        -:   70://   std::cout << foo;
+        -:   71://
+        -:   72:// will print "1 != 2".
+        -:   73://
+        -:   74:// Message is not intended to be inherited from.  In particular, its
+        -:   75:// destructor is not virtual.
         -:   76://
-        -:   77:// Message is not intended to be inherited from.  In particular, its
-        -:   78:// destructor is not virtual.
-        -:   79://
-        -:   80:// Note that stringstream behaves differently in gcc and in MSVC.  You
-        -:   81:// can stream a NULL char pointer to it in the former, but not in the
-        -:   82:// latter (it causes an access violation if you do).  The Message
-        -:   83:// class hides this difference by treating a NULL char pointer as
-        -:   84:// "(null)".
+        -:   77:// Note that stringstream behaves differently in gcc and in MSVC.  You
+        -:   78:// can stream a NULL char pointer to it in the former, but not in the
+        -:   79:// latter (it causes an access violation if you do).  The Message
+        -:   80:// class hides this difference by treating a NULL char pointer as
+        -:   81:// "(null)".
 function _ZN7testing7MessageD2Ev called 0 returned 0% blocks executed 0%
-    #####:   85:class GTEST_API_ Message {
+    #####:   82:class GTEST_API_ Message {
 call    0 never executed
-        -:   86: private:
-        -:   87:  // The type of basic IO manipulators (endl, ends, and flush) for
-        -:   88:  // narrow streams.
-        -:   89:  typedef std::ostream& (*BasicNarrowIoManip)(std::ostream&);
-        -:   90:
-        -:   91: public:
-        -:   92:  // Constructs an empty Message.
-        -:   93:  Message();
-        -:   94:
-        -:   95:  // Copy constructor.
-        -:   96:  Message(const Message& msg) : ss_(new ::std::stringstream) {  // NOLINT
-        -:   97:    *ss_ << msg.GetString();
-        -:   98:  }
+        -:   83: private:
+        -:   84:  // The type of basic IO manipulators (endl, ends, and flush) for
+        -:   85:  // narrow streams.
+        -:   86:  typedef std::ostream& (*BasicNarrowIoManip)(std::ostream&);
+        -:   87:
+        -:   88: public:
+        -:   89:  // Constructs an empty Message.
+        -:   90:  // We allocate the stringstream separately because otherwise each use of
+        -:   91:  // ASSERT/EXPECT in a procedure adds over 200 bytes to the procedure's
+        -:   92:  // stack frame leading to huge stack frames in some cases; gcc does not reuse
+        -:   93:  // the stack space.
+function _ZN7testing7MessageC2Ev called 0 returned 0% blocks executed 0%
+    #####:   94:  Message() : ss_(new ::std::stringstream) {
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+call    7 never executed
+call    8 never executed
+        -:   95:    // By default, we want there to be enough precision when printing
+        -:   96:    // a double to a Message.
+    #####:   97:    *ss_ << std::setprecision(std::numeric_limits<double>::digits10 + 2);
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+    #####:   98:  }
         -:   99:
-        -:  100:  // Constructs a Message from a C-string.
-        -:  101:  explicit Message(const char* str) : ss_(new ::std::stringstream) {
-        -:  102:    *ss_ << str;
+        -:  100:  // Copy constructor.
+        -:  101:  Message(const Message& msg) : ss_(new ::std::stringstream) {  // NOLINT
+        -:  102:    *ss_ << msg.GetString();
         -:  103:  }
         -:  104:
-        -:  105:#if GTEST_OS_SYMBIAN
-        -:  106:  // Streams a value (either a pointer or not) to this object.
-        -:  107:  template <typename T>
-        -:  108:  inline Message& operator <<(const T& value) {
-        -:  109:    StreamHelper(typename internal::is_pointer<T>::type(), value);
-        -:  110:    return *this;
-        -:  111:  }
-        -:  112:#else
-        -:  113:  // Streams a non-pointer value to this object.
-        -:  114:  template <typename T>
-        -:  115:  inline Message& operator <<(const T& val) {
-        -:  116:    // Some libraries overload << for STL containers.  These
-        -:  117:    // overloads are defined in the global namespace instead of ::std.
-        -:  118:    //
-        -:  119:    // C++'s symbol lookup rule (i.e. Koenig lookup) says that these
-        -:  120:    // overloads are visible in either the std namespace or the global
-        -:  121:    // namespace, but not other namespaces, including the testing
-        -:  122:    // namespace which Google Test's Message class is in.
-        -:  123:    //
-        -:  124:    // To allow STL containers (and other types that has a << operator
-        -:  125:    // defined in the global namespace) to be used in Google Test
-        -:  126:    // assertions, testing::Message must access the custom << operator
-        -:  127:    // from the global namespace.  With this using declaration,
-        -:  128:    // overloads of << defined in the global namespace and those
-        -:  129:    // visible via Koenig lookup are both exposed in this function.
-        -:  130:    using ::operator <<;
-        -:  131:    *ss_ << val;
-        -:  132:    return *this;
-        -:  133:  }
-        -:  134:
-        -:  135:  // Streams a pointer value to this object.
-        -:  136:  //
-        -:  137:  // This function is an overload of the previous one.  When you
-        -:  138:  // stream a pointer to a Message, this definition will be used as it
-        -:  139:  // is more specialized.  (The C++ Standard, section
-        -:  140:  // [temp.func.order].)  If you stream a non-pointer, then the
-        -:  141:  // previous definition will be used.
-        -:  142:  //
-        -:  143:  // The reason for this overload is that streaming a NULL pointer to
-        -:  144:  // ostream is undefined behavior.  Depending on the compiler, you
-        -:  145:  // may get "0", "(nil)", "(null)", or an access violation.  To
-        -:  146:  // ensure consistent result across compilers, we always treat NULL
-        -:  147:  // as "(null)".
-        -:  148:  template <typename T>
-        -:  149:  inline Message& operator <<(T* const& pointer) {  // NOLINT
-        -:  150:    if (pointer == NULL) {
-        -:  151:      *ss_ << "(null)";
-        -:  152:    } else {
-        -:  153:      *ss_ << pointer;
-        -:  154:    }
-        -:  155:    return *this;
-        -:  156:  }
-        -:  157:#endif  // GTEST_OS_SYMBIAN
-        -:  158:
-        -:  159:  // Since the basic IO manipulators are overloaded for both narrow
-        -:  160:  // and wide streams, we have to provide this specialized definition
-        -:  161:  // of operator <<, even though its body is the same as the
-        -:  162:  // templatized version above.  Without this definition, streaming
-        -:  163:  // endl or other basic IO manipulators to Message will confuse the
-        -:  164:  // compiler.
-        -:  165:  Message& operator <<(BasicNarrowIoManip val) {
-        -:  166:    *ss_ << val;
-        -:  167:    return *this;
-        -:  168:  }
-        -:  169:
-        -:  170:  // Instead of 1/0, we want to see true/false for bool values.
-        -:  171:  Message& operator <<(bool b) {
-        -:  172:    return *this << (b ? "true" : "false");
-        -:  173:  }
-        -:  174:
-        -:  175:  // These two overloads allow streaming a wide C string to a Message
-        -:  176:  // using the UTF-8 encoding.
-        -:  177:  Message& operator <<(const wchar_t* wide_c_str);
-        -:  178:  Message& operator <<(wchar_t* wide_c_str);
+        -:  105:  // Constructs a Message from a C-string.
+        -:  106:  explicit Message(const char* str) : ss_(new ::std::stringstream) {
+        -:  107:    *ss_ << str;
+        -:  108:  }
+        -:  109:
+        -:  110:#if GTEST_OS_SYMBIAN
+        -:  111:  // Streams a value (either a pointer or not) to this object.
+        -:  112:  template <typename T>
+        -:  113:  inline Message& operator <<(const T& value) {
+        -:  114:    StreamHelper(typename internal::is_pointer<T>::type(), value);
+        -:  115:    return *this;
+        -:  116:  }
+        -:  117:#else
+        -:  118:  // Streams a non-pointer value to this object.
+        -:  119:  template <typename T>
+        -:  120:  inline Message& operator <<(const T& val) {
+        -:  121:    ::GTestStreamToHelper(ss_.get(), val);
+        -:  122:    return *this;
+        -:  123:  }
+        -:  124:
+        -:  125:  // Streams a pointer value to this object.
+        -:  126:  //
+        -:  127:  // This function is an overload of the previous one.  When you
+        -:  128:  // stream a pointer to a Message, this definition will be used as it
+        -:  129:  // is more specialized.  (The C++ Standard, section
+        -:  130:  // [temp.func.order].)  If you stream a non-pointer, then the
+        -:  131:  // previous definition will be used.
+        -:  132:  //
+        -:  133:  // The reason for this overload is that streaming a NULL pointer to
+        -:  134:  // ostream is undefined behavior.  Depending on the compiler, you
+        -:  135:  // may get "0", "(nil)", "(null)", or an access violation.  To
+        -:  136:  // ensure consistent result across compilers, we always treat NULL
+        -:  137:  // as "(null)".
+        -:  138:  template <typename T>
+        -:  139:  inline Message& operator <<(T* const& pointer) {  // NOLINT
+        -:  140:    if (pointer == NULL) {
+        -:  141:      *ss_ << "(null)";
+        -:  142:    } else {
+        -:  143:      ::GTestStreamToHelper(ss_.get(), pointer);
+        -:  144:    }
+        -:  145:    return *this;
+        -:  146:  }
+        -:  147:#endif  // GTEST_OS_SYMBIAN
+        -:  148:
+        -:  149:  // Since the basic IO manipulators are overloaded for both narrow
+        -:  150:  // and wide streams, we have to provide this specialized definition
+        -:  151:  // of operator <<, even though its body is the same as the
+        -:  152:  // templatized version above.  Without this definition, streaming
+        -:  153:  // endl or other basic IO manipulators to Message will confuse the
+        -:  154:  // compiler.
+        -:  155:  Message& operator <<(BasicNarrowIoManip val) {
+        -:  156:    *ss_ << val;
+        -:  157:    return *this;
+        -:  158:  }
+        -:  159:
+        -:  160:  // Instead of 1/0, we want to see true/false for bool values.
+        -:  161:  Message& operator <<(bool b) {
+        -:  162:    return *this << (b ? "true" : "false");
+        -:  163:  }
+        -:  164:
+        -:  165:  // These two overloads allow streaming a wide C string to a Message
+        -:  166:  // using the UTF-8 encoding.
+        -:  167:  Message& operator <<(const wchar_t* wide_c_str) {
+        -:  168:    return *this << internal::String::ShowWideCString(wide_c_str);
+        -:  169:  }
+        -:  170:  Message& operator <<(wchar_t* wide_c_str) {
+        -:  171:    return *this << internal::String::ShowWideCString(wide_c_str);
+        -:  172:  }
+        -:  173:
+        -:  174:#if GTEST_HAS_STD_WSTRING
+        -:  175:  // Converts the given wide string to a narrow string using the UTF-8
+        -:  176:  // encoding, and streams the result to this Message object.
+        -:  177:  Message& operator <<(const ::std::wstring& wstr);
+        -:  178:#endif  // GTEST_HAS_STD_WSTRING
         -:  179:
-        -:  180:#if GTEST_HAS_STD_WSTRING
+        -:  180:#if GTEST_HAS_GLOBAL_WSTRING
         -:  181:  // Converts the given wide string to a narrow string using the UTF-8
         -:  182:  // encoding, and streams the result to this Message object.
-        -:  183:  Message& operator <<(const ::std::wstring& wstr);
-        -:  184:#endif  // GTEST_HAS_STD_WSTRING
+        -:  183:  Message& operator <<(const ::wstring& wstr);
+        -:  184:#endif  // GTEST_HAS_GLOBAL_WSTRING
         -:  185:
-        -:  186:#if GTEST_HAS_GLOBAL_WSTRING
-        -:  187:  // Converts the given wide string to a narrow string using the UTF-8
-        -:  188:  // encoding, and streams the result to this Message object.
-        -:  189:  Message& operator <<(const ::wstring& wstr);
-        -:  190:#endif  // GTEST_HAS_GLOBAL_WSTRING
-        -:  191:
-        -:  192:  // Gets the text streamed to this object so far as an std::string.
-        -:  193:  // Each '\0' character in the buffer is replaced with "\\0".
-        -:  194:  //
-        -:  195:  // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
-        -:  196:  std::string GetString() const;
-        -:  197:
-        -:  198: private:
-        -:  199:
-        -:  200:#if GTEST_OS_SYMBIAN
-        -:  201:  // These are needed as the Nokia Symbian Compiler cannot decide between
-        -:  202:  // const T& and const T* in a function template. The Nokia compiler _can_
-        -:  203:  // decide between class template specializations for T and T*, so a
-        -:  204:  // tr1::type_traits-like is_pointer works, and we can overload on that.
-        -:  205:  template <typename T>
-        -:  206:  inline void StreamHelper(internal::true_type /*is_pointer*/, T* pointer) {
-        -:  207:    if (pointer == NULL) {
-        -:  208:      *ss_ << "(null)";
-        -:  209:    } else {
-        -:  210:      *ss_ << pointer;
-        -:  211:    }
+        -:  186:  // Gets the text streamed to this object so far as a String.
+        -:  187:  // Each '\0' character in the buffer is replaced with "\\0".
+        -:  188:  //
+        -:  189:  // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+        -:  190:  internal::String GetString() const {
+        -:  191:    return internal::StringStreamToString(ss_.get());
+        -:  192:  }
+        -:  193:
+        -:  194: private:
+        -:  195:
+        -:  196:#if GTEST_OS_SYMBIAN
+        -:  197:  // These are needed as the Nokia Symbian Compiler cannot decide between
+        -:  198:  // const T& and const T* in a function template. The Nokia compiler _can_
+        -:  199:  // decide between class template specializations for T and T*, so a
+        -:  200:  // tr1::type_traits-like is_pointer works, and we can overload on that.
+        -:  201:  template <typename T>
+        -:  202:  inline void StreamHelper(internal::true_type /*dummy*/, T* pointer) {
+        -:  203:    if (pointer == NULL) {
+        -:  204:      *ss_ << "(null)";
+        -:  205:    } else {
+        -:  206:      ::GTestStreamToHelper(ss_.get(), pointer);
+        -:  207:    }
+        -:  208:  }
+        -:  209:  template <typename T>
+        -:  210:  inline void StreamHelper(internal::false_type /*dummy*/, const T& value) {
+        -:  211:    ::GTestStreamToHelper(ss_.get(), value);
         -:  212:  }
-        -:  213:  template <typename T>
-        -:  214:  inline void StreamHelper(internal::false_type /*is_pointer*/,
-        -:  215:                           const T& value) {
-        -:  216:    // See the comments in Message& operator <<(const T&) above for why
-        -:  217:    // we need this using statement.
-        -:  218:    using ::operator <<;
-        -:  219:    *ss_ << value;
-        -:  220:  }
-        -:  221:#endif  // GTEST_OS_SYMBIAN
+        -:  213:#endif  // GTEST_OS_SYMBIAN
+        -:  214:
+        -:  215:  // We'll hold the text streamed to this object here.
+        -:  216:  const internal::scoped_ptr< ::std::stringstream> ss_;
+        -:  217:
+        -:  218:  // We declare (but don't implement) this to prevent the compiler
+        -:  219:  // from implementing the assignment operator.
+        -:  220:  void operator=(const Message&);
+        -:  221:};
         -:  222:
-        -:  223:  // We'll hold the text streamed to this object here.
-        -:  224:  const internal::scoped_ptr< ::std::stringstream> ss_;
-        -:  225:
-        -:  226:  // We declare (but don't implement) this to prevent the compiler
-        -:  227:  // from implementing the assignment operator.
-        -:  228:  void operator=(const Message&);
-        -:  229:};
-        -:  230:
-        -:  231:// Streams a Message to an ostream.
-        -:  232:inline std::ostream& operator <<(std::ostream& os, const Message& sb) {
-        -:  233:  return os << sb.GetString();
-        -:  234:}
-        -:  235:
-        -:  236:namespace internal {
-        -:  237:
-        -:  238:// Converts a streamable value to an std::string.  A NULL pointer is
-        -:  239:// converted to "(null)".  When the input value is a ::string,
-        -:  240:// ::std::string, ::wstring, or ::std::wstring object, each NUL
-        -:  241:// character in it is replaced with "\\0".
-        -:  242:template <typename T>
-        -:  243:std::string StreamableToString(const T& streamable) {
-        -:  244:  return (Message() << streamable).GetString();
-        -:  245:}
-        -:  246:
-        -:  247:}  // namespace internal
-        -:  248:}  // namespace testing
-        -:  249:
-        -:  250:#endif  // GTEST_INCLUDE_GTEST_GTEST_MESSAGE_H_
+        -:  223:// Streams a Message to an ostream.
+        -:  224:inline std::ostream& operator <<(std::ostream& os, const Message& sb) {
+        -:  225:  return os << sb.GetString();
+        -:  226:}
+        -:  227:
+        -:  228:}  // namespace testing
+        -:  229:
+        -:  230:#endif  // GTEST_INCLUDE_GTEST_GTEST_MESSAGE_H_

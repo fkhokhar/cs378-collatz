@@ -650,248 +650,173 @@ call    1 never executed
         -:  630:  }
         -:  631:}
         -:  632:// This overload prints a (const) char array compactly.
-        -:  633:GTEST_API_ void UniversalPrintArray(
-        -:  634:    const char* begin, size_t len, ::std::ostream* os);
-        -:  635:
-        -:  636:// This overload prints a (const) wchar_t array compactly.
-        -:  637:GTEST_API_ void UniversalPrintArray(
-        -:  638:    const wchar_t* begin, size_t len, ::std::ostream* os);
-        -:  639:
-        -:  640:// Implements printing an array type T[N].
-        -:  641:template <typename T, size_t N>
-        -:  642:class UniversalPrinter<T[N]> {
-        -:  643: public:
-        -:  644:  // Prints the given array, omitting some elements when there are too
-        -:  645:  // many.
-        -:  646:  static void Print(const T (&a)[N], ::std::ostream* os) {
-        -:  647:    UniversalPrintArray(a, N, os);
-        -:  648:  }
-        -:  649:};
-        -:  650:
-        -:  651:// Implements printing a reference type T&.
-        -:  652:template <typename T>
-        -:  653:class UniversalPrinter<T&> {
-        -:  654: public:
-        -:  655:  // MSVC warns about adding const to a function type, so we want to
-        -:  656:  // disable the warning.
-        -:  657:#ifdef _MSC_VER
-        -:  658:# pragma warning(push)          // Saves the current warning state.
-        -:  659:# pragma warning(disable:4180)  // Temporarily disables warning 4180.
-        -:  660:#endif  // _MSC_VER
-        -:  661:
-        -:  662:  static void Print(const T& value, ::std::ostream* os) {
-        -:  663:    // Prints the address of the value.  We use reinterpret_cast here
-        -:  664:    // as static_cast doesn't compile when T is a function type.
-        -:  665:    *os << "@" << reinterpret_cast<const void*>(&value) << " ";
-        -:  666:
-        -:  667:    // Then prints the value itself.
-        -:  668:    UniversalPrint(value, os);
-        -:  669:  }
-        -:  670:
-        -:  671:#ifdef _MSC_VER
-        -:  672:# pragma warning(pop)           // Restores the warning state.
-        -:  673:#endif  // _MSC_VER
-        -:  674:};
-        -:  675:
-        -:  676:// Prints a value tersely: for a reference type, the referenced value
-        -:  677:// (but not the address) is printed; for a (const) char pointer, the
-        -:  678:// NUL-terminated string (but not the pointer) is printed.
-        -:  679:
-        -:  680:template <typename T>
-        -:  681:class UniversalTersePrinter {
-        -:  682: public:
-function _ZN7testing8internal21UniversalTersePrinterISsE5PrintERKSsPSo called 0 returned 0% blocks executed 0%
-function _ZN7testing8internal21UniversalTersePrinterIiE5PrintERKiPSo called 0 returned 0% blocks executed 0%
-    #####:  683:  static void Print(const T& value, ::std::ostream* os) {
-    #####:  684:    UniversalPrint(value, os);
+        -:  633:GTEST_API_ void UniversalPrintArray(const char* begin,
+        -:  634:                                    size_t len,
+        -:  635:                                    ::std::ostream* os);
+        -:  636:
+        -:  637:// Implements printing an array type T[N].
+        -:  638:template <typename T, size_t N>
+        -:  639:class UniversalPrinter<T[N]> {
+        -:  640: public:
+        -:  641:  // Prints the given array, omitting some elements when there are too
+        -:  642:  // many.
+        -:  643:  static void Print(const T (&a)[N], ::std::ostream* os) {
+        -:  644:    UniversalPrintArray(a, N, os);
+        -:  645:  }
+        -:  646:};
+        -:  647:
+        -:  648:// Implements printing a reference type T&.
+        -:  649:template <typename T>
+        -:  650:class UniversalPrinter<T&> {
+        -:  651: public:
+        -:  652:  // MSVC warns about adding const to a function type, so we want to
+        -:  653:  // disable the warning.
+        -:  654:#ifdef _MSC_VER
+        -:  655:# pragma warning(push)          // Saves the current warning state.
+        -:  656:# pragma warning(disable:4180)  // Temporarily disables warning 4180.
+        -:  657:#endif  // _MSC_VER
+        -:  658:
+        -:  659:  static void Print(const T& value, ::std::ostream* os) {
+        -:  660:    // Prints the address of the value.  We use reinterpret_cast here
+        -:  661:    // as static_cast doesn't compile when T is a function type.
+        -:  662:    *os << "@" << reinterpret_cast<const void*>(&value) << " ";
+        -:  663:
+        -:  664:    // Then prints the value itself.
+        -:  665:    UniversalPrint(value, os);
+        -:  666:  }
+        -:  667:
+        -:  668:#ifdef _MSC_VER
+        -:  669:# pragma warning(pop)           // Restores the warning state.
+        -:  670:#endif  // _MSC_VER
+        -:  671:};
+        -:  672:
+        -:  673:// Prints a value tersely: for a reference type, the referenced value
+        -:  674:// (but not the address) is printed; for a (const) char pointer, the
+        -:  675:// NUL-terminated string (but not the pointer) is printed.
+        -:  676:template <typename T>
+function _ZN7testing8internal19UniversalTersePrintISsEEvRKT_PSo called 0 returned 0% blocks executed 0%
+function _ZN7testing8internal19UniversalTersePrintIiEEvRKT_PSo called 0 returned 0% blocks executed 0%
+    #####:  677:void UniversalTersePrint(const T& value, ::std::ostream* os) {
+    #####:  678:  UniversalPrint(value, os);
 call    0 never executed
 call    1 never executed
-    #####:  685:  }
-        -:  686:};
-        -:  687:template <typename T>
-        -:  688:class UniversalTersePrinter<T&> {
-        -:  689: public:
-        -:  690:  static void Print(const T& value, ::std::ostream* os) {
-        -:  691:    UniversalPrint(value, os);
-        -:  692:  }
-        -:  693:};
-        -:  694:template <typename T, size_t N>
-        -:  695:class UniversalTersePrinter<T[N]> {
-        -:  696: public:
-        -:  697:  static void Print(const T (&value)[N], ::std::ostream* os) {
-        -:  698:    UniversalPrinter<T[N]>::Print(value, os);
-        -:  699:  }
-        -:  700:};
-        -:  701:template <>
-        -:  702:class UniversalTersePrinter<const char*> {
-        -:  703: public:
-function _ZN7testing8internal21UniversalTersePrinterIPKcE5PrintES3_PSo called 0 returned 0% blocks executed 0%
-    #####:  704:  static void Print(const char* str, ::std::ostream* os) {
-    #####:  705:    if (str == NULL) {
-branch  0 never executed
-branch  1 never executed
-    #####:  706:      *os << "NULL";
-call    0 never executed
-        -:  707:    } else {
-    #####:  708:      UniversalPrint(string(str), os);
-call    0 never executed
-call    1 never executed
-branch  2 never executed
-branch  3 never executed
-call    4 never executed
-branch  5 never executed
-branch  6 never executed
-call    7 never executed
-call    8 never executed
-call    9 never executed
-call   10 never executed
-        -:  709:    }
-    #####:  710:  }
-        -:  711:};
-        -:  712:template <>
-        -:  713:class UniversalTersePrinter<char*> {
-        -:  714: public:
-        -:  715:  static void Print(char* str, ::std::ostream* os) {
-        -:  716:    UniversalTersePrinter<const char*>::Print(str, os);
-        -:  717:  }
-        -:  718:};
-        -:  719:
-        -:  720:#if GTEST_HAS_STD_WSTRING
-        -:  721:template <>
-        -:  722:class UniversalTersePrinter<const wchar_t*> {
-        -:  723: public:
-        -:  724:  static void Print(const wchar_t* str, ::std::ostream* os) {
-        -:  725:    if (str == NULL) {
-        -:  726:      *os << "NULL";
-        -:  727:    } else {
-        -:  728:      UniversalPrint(::std::wstring(str), os);
-        -:  729:    }
-        -:  730:  }
-        -:  731:};
-        -:  732:#endif
-        -:  733:
-        -:  734:template <>
-        -:  735:class UniversalTersePrinter<wchar_t*> {
-        -:  736: public:
-        -:  737:  static void Print(wchar_t* str, ::std::ostream* os) {
-        -:  738:    UniversalTersePrinter<const wchar_t*>::Print(str, os);
-        -:  739:  }
-        -:  740:};
-        -:  741:
-        -:  742:template <typename T>
-        -:  743:void UniversalTersePrint(const T& value, ::std::ostream* os) {
-        -:  744:  UniversalTersePrinter<T>::Print(value, os);
-        -:  745:}
-        -:  746:
-        -:  747:// Prints a value using the type inferred by the compiler.  The
-        -:  748:// difference between this and UniversalTersePrint() is that for a
-        -:  749:// (const) char pointer, this prints both the pointer and the
-        -:  750:// NUL-terminated string.
-        -:  751:template <typename T>
+    #####:  679:}
+        -:  680:inline void UniversalTersePrint(const char* str, ::std::ostream* os) {
+        -:  681:  if (str == NULL) {
+        -:  682:    *os << "NULL";
+        -:  683:  } else {
+        -:  684:    UniversalPrint(string(str), os);
+        -:  685:  }
+        -:  686:}
+        -:  687:inline void UniversalTersePrint(char* str, ::std::ostream* os) {
+        -:  688:  UniversalTersePrint(static_cast<const char*>(str), os);
+        -:  689:}
+        -:  690:
+        -:  691:// Prints a value using the type inferred by the compiler.  The
+        -:  692:// difference between this and UniversalTersePrint() is that for a
+        -:  693:// (const) char pointer, this prints both the pointer and the
+        -:  694:// NUL-terminated string.
+        -:  695:template <typename T>
 function _ZN7testing8internal14UniversalPrintIiEEvRKT_PSo called 0 returned 0% blocks executed 0%
 function _ZN7testing8internal14UniversalPrintISsEEvRKT_PSo called 0 returned 0% blocks executed 0%
-    #####:  752:void UniversalPrint(const T& value, ::std::ostream* os) {
-        -:  753:  // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
-        -:  754:  // UniversalPrinter with T directly.
-        -:  755:  typedef T T1;
-    #####:  756:  UniversalPrinter<T1>::Print(value, os);
+    #####:  696:void UniversalPrint(const T& value, ::std::ostream* os) {
+    #####:  697:  UniversalPrinter<T>::Print(value, os);
 call    0 never executed
 call    1 never executed
-    #####:  757:}
-        -:  758:
-        -:  759:#if GTEST_HAS_TR1_TUPLE
-        -:  760:typedef ::std::vector<string> Strings;
-        -:  761:
-        -:  762:// This helper template allows PrintTo() for tuples and
-        -:  763:// UniversalTersePrintTupleFieldsToStrings() to be defined by
-        -:  764:// induction on the number of tuple fields.  The idea is that
-        -:  765:// TuplePrefixPrinter<N>::PrintPrefixTo(t, os) prints the first N
-        -:  766:// fields in tuple t, and can be defined in terms of
-        -:  767:// TuplePrefixPrinter<N - 1>.
-        -:  768:
-        -:  769:// The inductive case.
-        -:  770:template <size_t N>
-        -:  771:struct TuplePrefixPrinter {
-        -:  772:  // Prints the first N fields of a tuple.
-        -:  773:  template <typename Tuple>
-        -:  774:  static void PrintPrefixTo(const Tuple& t, ::std::ostream* os) {
-        -:  775:    TuplePrefixPrinter<N - 1>::PrintPrefixTo(t, os);
-        -:  776:    *os << ", ";
-        -:  777:    UniversalPrinter<typename ::std::tr1::tuple_element<N - 1, Tuple>::type>
-        -:  778:        ::Print(::std::tr1::get<N - 1>(t), os);
-        -:  779:  }
-        -:  780:
-        -:  781:  // Tersely prints the first N fields of a tuple to a string vector,
-        -:  782:  // one element for each field.
-        -:  783:  template <typename Tuple>
-        -:  784:  static void TersePrintPrefixToStrings(const Tuple& t, Strings* strings) {
-        -:  785:    TuplePrefixPrinter<N - 1>::TersePrintPrefixToStrings(t, strings);
-        -:  786:    ::std::stringstream ss;
-        -:  787:    UniversalTersePrint(::std::tr1::get<N - 1>(t), &ss);
-        -:  788:    strings->push_back(ss.str());
-        -:  789:  }
-        -:  790:};
-        -:  791:
-        -:  792:// Base cases.
-        -:  793:template <>
-        -:  794:struct TuplePrefixPrinter<0> {
-        -:  795:  template <typename Tuple>
-        -:  796:  static void PrintPrefixTo(const Tuple&, ::std::ostream*) {}
-        -:  797:
-        -:  798:  template <typename Tuple>
-        -:  799:  static void TersePrintPrefixToStrings(const Tuple&, Strings*) {}
-        -:  800:};
-        -:  801:// We have to specialize the entire TuplePrefixPrinter<> class
-        -:  802:// template here, even though the definition of
-        -:  803:// TersePrintPrefixToStrings() is the same as the generic version, as
-        -:  804:// Embarcadero (formerly CodeGear, formerly Borland) C++ doesn't
-        -:  805:// support specializing a method template of a class template.
-        -:  806:template <>
-        -:  807:struct TuplePrefixPrinter<1> {
-        -:  808:  template <typename Tuple>
-        -:  809:  static void PrintPrefixTo(const Tuple& t, ::std::ostream* os) {
-        -:  810:    UniversalPrinter<typename ::std::tr1::tuple_element<0, Tuple>::type>::
-        -:  811:        Print(::std::tr1::get<0>(t), os);
-        -:  812:  }
-        -:  813:
-        -:  814:  template <typename Tuple>
-        -:  815:  static void TersePrintPrefixToStrings(const Tuple& t, Strings* strings) {
-        -:  816:    ::std::stringstream ss;
-        -:  817:    UniversalTersePrint(::std::tr1::get<0>(t), &ss);
-        -:  818:    strings->push_back(ss.str());
-        -:  819:  }
-        -:  820:};
-        -:  821:
-        -:  822:// Helper function for printing a tuple.  T must be instantiated with
-        -:  823:// a tuple type.
-        -:  824:template <typename T>
-        -:  825:void PrintTupleTo(const T& t, ::std::ostream* os) {
-        -:  826:  *os << "(";
-        -:  827:  TuplePrefixPrinter< ::std::tr1::tuple_size<T>::value>::
-        -:  828:      PrintPrefixTo(t, os);
-        -:  829:  *os << ")";
-        -:  830:}
-        -:  831:
-        -:  832:// Prints the fields of a tuple tersely to a string vector, one
-        -:  833:// element for each field.  See the comment before
-        -:  834:// UniversalTersePrint() for how we define "tersely".
-        -:  835:template <typename Tuple>
-        -:  836:Strings UniversalTersePrintTupleFieldsToStrings(const Tuple& value) {
-        -:  837:  Strings result;
-        -:  838:  TuplePrefixPrinter< ::std::tr1::tuple_size<Tuple>::value>::
-        -:  839:      TersePrintPrefixToStrings(value, &result);
-        -:  840:  return result;
-        -:  841:}
-        -:  842:#endif  // GTEST_HAS_TR1_TUPLE
-        -:  843:
-        -:  844:}  // namespace internal
-        -:  845:
-        -:  846:template <typename T>
+    #####:  698:}
+        -:  699:
+        -:  700:#if GTEST_HAS_TR1_TUPLE
+        -:  701:typedef ::std::vector<string> Strings;
+        -:  702:
+        -:  703:// This helper template allows PrintTo() for tuples and
+        -:  704:// UniversalTersePrintTupleFieldsToStrings() to be defined by
+        -:  705:// induction on the number of tuple fields.  The idea is that
+        -:  706:// TuplePrefixPrinter<N>::PrintPrefixTo(t, os) prints the first N
+        -:  707:// fields in tuple t, and can be defined in terms of
+        -:  708:// TuplePrefixPrinter<N - 1>.
+        -:  709:
+        -:  710:// The inductive case.
+        -:  711:template <size_t N>
+        -:  712:struct TuplePrefixPrinter {
+        -:  713:  // Prints the first N fields of a tuple.
+        -:  714:  template <typename Tuple>
+        -:  715:  static void PrintPrefixTo(const Tuple& t, ::std::ostream* os) {
+        -:  716:    TuplePrefixPrinter<N - 1>::PrintPrefixTo(t, os);
+        -:  717:    *os << ", ";
+        -:  718:    UniversalPrinter<typename ::std::tr1::tuple_element<N - 1, Tuple>::type>
+        -:  719:        ::Print(::std::tr1::get<N - 1>(t), os);
+        -:  720:  }
+        -:  721:
+        -:  722:  // Tersely prints the first N fields of a tuple to a string vector,
+        -:  723:  // one element for each field.
+        -:  724:  template <typename Tuple>
+        -:  725:  static void TersePrintPrefixToStrings(const Tuple& t, Strings* strings) {
+        -:  726:    TuplePrefixPrinter<N - 1>::TersePrintPrefixToStrings(t, strings);
+        -:  727:    ::std::stringstream ss;
+        -:  728:    UniversalTersePrint(::std::tr1::get<N - 1>(t), &ss);
+        -:  729:    strings->push_back(ss.str());
+        -:  730:  }
+        -:  731:};
+        -:  732:
+        -:  733:// Base cases.
+        -:  734:template <>
+        -:  735:struct TuplePrefixPrinter<0> {
+        -:  736:  template <typename Tuple>
+        -:  737:  static void PrintPrefixTo(const Tuple&, ::std::ostream*) {}
+        -:  738:
+        -:  739:  template <typename Tuple>
+        -:  740:  static void TersePrintPrefixToStrings(const Tuple&, Strings*) {}
+        -:  741:};
+        -:  742:// We have to specialize the entire TuplePrefixPrinter<> class
+        -:  743:// template here, even though the definition of
+        -:  744:// TersePrintPrefixToStrings() is the same as the generic version, as
+        -:  745:// Embarcadero (formerly CodeGear, formerly Borland) C++ doesn't
+        -:  746:// support specializing a method template of a class template.
+        -:  747:template <>
+        -:  748:struct TuplePrefixPrinter<1> {
+        -:  749:  template <typename Tuple>
+        -:  750:  static void PrintPrefixTo(const Tuple& t, ::std::ostream* os) {
+        -:  751:    UniversalPrinter<typename ::std::tr1::tuple_element<0, Tuple>::type>::
+        -:  752:        Print(::std::tr1::get<0>(t), os);
+        -:  753:  }
+        -:  754:
+        -:  755:  template <typename Tuple>
+        -:  756:  static void TersePrintPrefixToStrings(const Tuple& t, Strings* strings) {
+        -:  757:    ::std::stringstream ss;
+        -:  758:    UniversalTersePrint(::std::tr1::get<0>(t), &ss);
+        -:  759:    strings->push_back(ss.str());
+        -:  760:  }
+        -:  761:};
+        -:  762:
+        -:  763:// Helper function for printing a tuple.  T must be instantiated with
+        -:  764:// a tuple type.
+        -:  765:template <typename T>
+        -:  766:void PrintTupleTo(const T& t, ::std::ostream* os) {
+        -:  767:  *os << "(";
+        -:  768:  TuplePrefixPrinter< ::std::tr1::tuple_size<T>::value>::
+        -:  769:      PrintPrefixTo(t, os);
+        -:  770:  *os << ")";
+        -:  771:}
+        -:  772:
+        -:  773:// Prints the fields of a tuple tersely to a string vector, one
+        -:  774:// element for each field.  See the comment before
+        -:  775:// UniversalTersePrint() for how we define "tersely".
+        -:  776:template <typename Tuple>
+        -:  777:Strings UniversalTersePrintTupleFieldsToStrings(const Tuple& value) {
+        -:  778:  Strings result;
+        -:  779:  TuplePrefixPrinter< ::std::tr1::tuple_size<Tuple>::value>::
+        -:  780:      TersePrintPrefixToStrings(value, &result);
+        -:  781:  return result;
+        -:  782:}
+        -:  783:#endif  // GTEST_HAS_TR1_TUPLE
+        -:  784:
+        -:  785:}  // namespace internal
+        -:  786:
+        -:  787:template <typename T>
 function _ZN7testing13PrintToStringISsEESsRKT_ called 0 returned 0% blocks executed 0%
 function _ZN7testing13PrintToStringIiEESsRKT_ called 0 returned 0% blocks executed 0%
-function _ZN7testing13PrintToStringIPKcEESsRKT_ called 0 returned 0% blocks executed 0%
-    #####:  847:::std::string PrintToString(const T& value) {
-    #####:  848:  ::std::stringstream ss;
+    #####:  788:::std::string PrintToString(const T& value) {
+    #####:  789:  ::std::stringstream ss;
 call    0 never executed
 call    1 never executed
 branch  2 never executed
@@ -900,21 +825,14 @@ call    4 never executed
 call    5 never executed
 branch  6 never executed
 branch  7 never executed
-call    8 never executed
-call    9 never executed
-branch 10 never executed
-branch 11 never executed
-    #####:  849:  internal::UniversalTersePrinter<T>::Print(value, &ss);
+    #####:  790:  internal::UniversalTersePrint(value, &ss);
 call    0 never executed
 branch  1 never executed
 branch  2 never executed
 call    3 never executed
 branch  4 never executed
 branch  5 never executed
-call    6 never executed
-branch  7 never executed
-branch  8 never executed
-    #####:  850:  return ss.str();
+    #####:  791:  return ss.str();
 call    0 never executed
 branch  1 never executed
 branch  2 never executed
@@ -925,13 +843,8 @@ branch  6 never executed
 branch  7 never executed
 call    8 never executed
 call    9 never executed
-call   10 never executed
-branch 11 never executed
-branch 12 never executed
-call   13 never executed
-call   14 never executed
-        -:  851:}
-        -:  852:
-        -:  853:}  // namespace testing
-        -:  854:
-        -:  855:#endif  // GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
+        -:  792:}
+        -:  793:
+        -:  794:}  // namespace testing
+        -:  795:
+        -:  796:#endif  // GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_

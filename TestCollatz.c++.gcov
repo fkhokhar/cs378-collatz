@@ -144,7 +144,7 @@ call   10 returned 100%
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
-        1:   44:    ASSERT_EQ(1, v);}
+        1:   44:    ASSERT_EQ(20, v);}
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
@@ -192,7 +192,7 @@ call   10 returned 100%
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
-        1:   48:    ASSERT_EQ(1, v);}
+        1:   48:    ASSERT_EQ(125, v);}
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
@@ -240,7 +240,7 @@ call   10 returned 100%
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
-        1:   52:    ASSERT_EQ(1, v);}
+        1:   52:    ASSERT_EQ(89, v);}
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
@@ -288,7 +288,7 @@ call   10 returned 100%
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
-        1:   56:    ASSERT_EQ(1, v);}
+        1:   56:    ASSERT_EQ(174, v);}
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
@@ -427,7 +427,7 @@ branch  1 taken 100% (fallthrough)
 branch  2 taken 0% (throw)
 function _GLOBAL__sub_I__ZN24CollatzFixture_read_Test10test_info_E called 1 returned 100% blocks executed 100%
 function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
-        5:   75:    ASSERT_EQ("1 10 1\n100 200 1\n201 210 1\n900 1000 1\n", w.str());}
+        5:   75:    ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n", w.str());}
 call    0 returned 100%
 branch  1 taken 100% (fallthrough)
 branch  2 taken 0%

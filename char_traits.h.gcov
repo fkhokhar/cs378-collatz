@@ -1,4 +1,4 @@
-        -:    0:Source:/usr/include/c++/4.8/bits/char_traits.h
+        -:    0:Source:/lusr/opt/gcc-4.8.2/include/c++/4.8.2/bits/char_traits.h
         -:    0:Graph:TestCollatz.gcno
         -:    0:Data:TestCollatz.gcda
         -:    0:Runs:1
@@ -261,9 +261,8 @@ function _ZNSt11char_traitsIcE6assignERcRKc called 0 returned 0% blocks executed
         -:  255:      { return __builtin_memcmp(__s1, __s2, __n); }
         -:  256:
         -:  257:      static size_t
-function _ZNSt11char_traitsIcE6lengthEPKc called 0 returned 0% blocks executed 0%
-    #####:  258:      length(const char_type* __s)
-    #####:  259:      { return __builtin_strlen(__s); }
+        -:  258:      length(const char_type* __s)
+        -:  259:      { return __builtin_strlen(__s); }
         -:  260:
         -:  261:      static const char_type*
         -:  262:      find(const char_type* __s, size_t __n, const char_type& __a)
