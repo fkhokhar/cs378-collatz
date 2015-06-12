@@ -55,6 +55,10 @@ TEST(CollatzFixture, eval_4) {
     const int v = collatz_eval(900, 1000);
     ASSERT_EQ(174, v);}
 
+TEST(CollatzFixture, eval_5) { //both inputs same case
+    const int v = collatz_eval(3, 3);
+    ASSERT_EQ(8, v);}
+
 // -----
 // print
 // -----
