@@ -782,9 +782,9 @@
         -:  777:
 function _ZN7testing8internal10scoped_ptrISt18basic_stringstreamIcSt11char_traitsIcESaIcEEEC2EPS6_ called 0 returned 0% blocks executed 0%
     #####:  778:  explicit scoped_ptr(T* p = NULL) : ptr_(p) {}
-function _ZN7testing8internal10scoped_ptrISsED2Ev called 8 returned 100% blocks executed 100%
+function _ZN7testing8internal10scoped_ptrISsED2Ev called 23 returned 100% blocks executed 100%
 function _ZN7testing8internal10scoped_ptrISt18basic_stringstreamIcSt11char_traitsIcESaIcEEED2Ev called 0 returned 0% blocks executed 0%
-        8:  779:  ~scoped_ptr() { reset(); }
+       23:  779:  ~scoped_ptr() { reset(); }
 call    0 returned 100%
 call    1 never executed
         -:  780:
@@ -802,9 +802,9 @@ function _ZNK7testing8internal10scoped_ptrISsE3getEv called 0 returned 0% blocks
         -:  789:  }
         -:  790:
 function _ZN7testing8internal10scoped_ptrISt18basic_stringstreamIcSt11char_traitsIcESaIcEEE5resetEPS6_ called 0 returned 0% blocks executed 0%
-function _ZN7testing8internal10scoped_ptrISsE5resetEPSs called 8 returned 100% blocks executed 25%
-        8:  791:  void reset(T* p = NULL) {
-        8:  792:    if (p != ptr_) {
+function _ZN7testing8internal10scoped_ptrISsE5resetEPSs called 23 returned 100% blocks executed 25%
+       23:  791:  void reset(T* p = NULL) {
+       23:  792:    if (p != ptr_) {
 branch  0 never executed
 branch  1 never executed
 branch  2 taken 0% (fallthrough)
@@ -827,7 +827,7 @@ call    6 never executed
         -:  795:      }
     #####:  796:      ptr_ = p;
         -:  797:    }
-        8:  798:  }
+       23:  798:  }
         -:  799: private:
         -:  800:  T* ptr_;
         -:  801:

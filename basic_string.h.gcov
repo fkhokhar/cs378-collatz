@@ -2519,10 +2519,10 @@ branch  2 never executed
         -: 2504:   */
         -: 2505:  template<typename _CharT, typename _Traits, typename _Alloc>
         -: 2506:    inline bool
-function _ZSteqIcSt11char_traitsIcESaIcEEbPKT_RKSbIS3_T0_T1_E called 2 returned 100% blocks executed 100%
-        2: 2507:    operator==(const _CharT* __lhs,
+function _ZSteqIcSt11char_traitsIcESaIcEEbPKT_RKSbIS3_T0_T1_E called 8 returned 100% blocks executed 100%
+        8: 2507:    operator==(const _CharT* __lhs,
         -: 2508:	       const basic_string<_CharT, _Traits, _Alloc>& __rhs)
-        2: 2509:    { return __rhs.compare(__lhs) == 0; }
+        8: 2509:    { return __rhs.compare(__lhs) == 0; }
 call    0 returned 100%
         -: 2510:
         -: 2511:  /**

@@ -16,6 +16,11 @@
 
 using namespace std;
 
+#define CACHE_SIZE 1000000
+#ifdef CACHE_SIZE
+int cache[CACHE_SIZE];
+#endif 
+
 // ------------
 // collatz_read
 // ------------
@@ -33,27 +38,48 @@ pair<int, int> collatz_read (const string& s) {
 
 int collatz_eval (int i, int j) {
 
-    if(i > j){  // case 2: input is in reverse order
+    int max = 0;
+    int counter = 1;
+
+    if(i > j){  // the case if input is in reverse order
         int temp = j;
         j = i;
         i = temp;
     }
 
-    int max = 0;
-    int counter = 1;
+    /*
+    Given positive integers, b and e, let m = (e / 2) + 1.
+    If b < m, then max_cycle_length(b, e) = max_cycle_length(m, e).
+    Discussed this optimization in a quiz in class.
+    */
+    int halvedNum = (j/2) + 1;
+    
+    if (i < halvedNum){
+       i = halvedNum;
+    }
 
     for(int start = i; start <= j; start++){
         int temp = start;
 
         while(temp != 1){
-            if(temp % 2 == 0){
+            if(temp < 1000000){ //only deal with indices inside the upper bound
+                if(cache[temp] != 0){ //if entry is not empty
+                    counter += cache[temp]; //add current counter to prev value
+                }
+            }
+            if(temp % 2 == 0){ //even number case
                 temp = temp/2;
                 counter++;
-            } else{
+            } else{ //odd number case
                 temp = (temp * 3) + 1;
                 counter++;
             }
         }
+
+        if(cache[temp] == 0){ //if entry not present in cache, then cache it
+            cache[temp] = counter;
+        }
+
         if(counter > max){
             max = counter;
         }

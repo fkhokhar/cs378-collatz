@@ -34,6 +34,24 @@ TEST(CollatzFixture, read) {
     const pair<int, int> p = collatz_read(s);
     ASSERT_EQ( 1, p.first);
     ASSERT_EQ(10, p.second);}
+
+TEST(CollatzFixture, read1) {
+    string s("10 1\n");
+    const pair<int, int> p = collatz_read(s);
+    ASSERT_EQ(10, p.first);
+    ASSERT_EQ(1, p.second);}
+
+TEST(CollatzFixture, read2) {
+    string s("5 5\n");
+    const pair<int, int> p = collatz_read(s);
+    ASSERT_EQ(5, p.first);
+    ASSERT_EQ(5, p.second);}
+
+TEST(CollatzFixture, read3) {
+    string s("1 999999\n");
+    const pair<int, int> p = collatz_read(s);
+    ASSERT_EQ(1, p.first);
+    ASSERT_EQ(999999, p.second);}
     
 // ----
 // eval
@@ -55,9 +73,17 @@ TEST(CollatzFixture, eval_4) {
     const int v = collatz_eval(900, 1000);
     ASSERT_EQ(174, v);}
 
-TEST(CollatzFixture, eval_5) { //both inputs same case
+TEST(CollatzFixture, eval_5) { //both inputs are same case
     const int v = collatz_eval(3, 3);
     ASSERT_EQ(8, v);}
+
+TEST(CollatzFixture, eval_6) { //inputs are reversed case
+    const int v = collatz_eval(10, 1);
+    ASSERT_EQ(20, v);}
+
+TEST(Collatz, eval_7) { //big calculation case
+    const int v = collatz_eval(500000, 500002);
+    ASSERT_EQ(152, v);}
 
 // -----
 // print
@@ -68,6 +94,21 @@ TEST(CollatzFixture, print) {
     collatz_print(w, 1, 10, 20);
     ASSERT_EQ("1 10 20\n", w.str());}
 
+TEST(CollatzFixture, print1) {
+    ostringstream w;
+    collatz_print(w, 1, 1, 1);
+    ASSERT_EQ("1 1 1\n", w.str());}
+
+TEST(CollatzFixture, print2) {
+    ostringstream w;
+    collatz_print(w, 999999, 999999, 999999);
+    ASSERT_EQ("999999 999999 999999\n", w.str());}
+
+TEST(CollatzFixture, print3) {
+    ostringstream w;
+    collatz_print(w, 3, 2, 1);
+    ASSERT_EQ("3 2 1\n", w.str());}
+
 // -----
 // solve
 // -----
@@ -77,6 +118,24 @@ TEST(CollatzFixture, solve) {
     ostringstream w;
     collatz_solve(r, w);
     ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n", w.str());}
+
+TEST(Collatz, solveA) {
+    istringstream r("4725 47235\n47235 4725\n");
+    ostringstream w;
+    collatz_solve(r, w);
+    ASSERT_EQ("4725 47235 324\n47235 4725 324\n", w.str());}
+
+TEST(Collatz, solveB) {
+    istringstream r("2 35\n35 2\n235 235\n");
+    ostringstream w;
+    collatz_solve(r, w);
+    ASSERT_EQ("2 35 112\n35 2 112\n235 235 128\n", w.str());}
+
+TEST(Collatz, solveC) {
+    istringstream r("5 390\n391 389\n39 3901\n");
+    ostringstream w;
+    collatz_solve(r, w);
+    ASSERT_EQ("5 390 144\n391 389 121\n39 3901 238\n", w.str());}
 
 /*
 % ls -al /usr/include/gtest/
