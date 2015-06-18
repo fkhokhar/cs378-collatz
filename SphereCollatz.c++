@@ -63,9 +63,11 @@ int collatz_eval (int i, int j) {
 
         while(temp != 1){
             if(temp < 1000000){ //only deal with indices inside the upper bound
+                #ifdef CACHE_SIZE
                 if(cache[temp] != 0){ //if entry is not empty
                     counter += cache[temp]; //add current counter to prev value
                 }
+                #endif
             }
             if(temp % 2 == 0){ //even number case
                 temp = temp/2;
@@ -76,9 +78,11 @@ int collatz_eval (int i, int j) {
             }
         }
 
+        #ifdef CACHE_SIZE
         if(cache[temp] == 0){ //if entry not present in cache, then cache it
             cache[temp] = counter;
         }
+        #endif
 
         if(counter > max){
             max = counter;
@@ -110,12 +114,7 @@ void collatz_solve (istream& r, ostream& w) {
         const int            v = collatz_eval(i, j);
         collatz_print(w, i, j, v);}}
 
-// ----
-// main
-// ----
-
 int main () {
     using namespace std;
     collatz_solve(cin, cout);
     return 0;}
-
