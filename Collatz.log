@@ -1,0 +1,120 @@
+commit 766d60658d3a43bef4b66f015ed5f2155c754cac
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Wed Jun 17 19:45:47 2015 -0500
+
+    fixed doxyfile to include all the files
+
+commit ba84627c90aca601b2917d224b2248b15c254ad9
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Wed Jun 17 19:40:15 2015 -0500
+
+    ran doxygen and documented the interface to my functions
+
+commit f50502e17ec7d2fb8a7211c54b410a1909ee1705
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Wed Jun 17 19:33:20 2015 -0500
+
+    added the ifdef feature to my cache -- comment out line #21 of Collatz.c++ to turn off the cache
+
+commit 271a3bb5d255851551c04860d0b0b41fb25af504
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Mon Jun 15 19:04:16 2015 -0500
+
+    testing if gitignore works properly
+
+commit 7b0bb153b5bcc0127fa48733289c7d203ef34084
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Mon Jun 15 19:03:20 2015 -0500
+
+    did a git clean to remove all the gcov files
+
+commit 2c68ff42e5c9a69c1a0747cd52615fc66f0db504
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Mon Jun 15 18:58:44 2015 -0500
+
+    created 100 acceptance tests -- implemented cache
+
+commit eb8d1de1128548f64bd3e53c01f70f75a47f73f4
+Author: Fahad Khokhar <fkhokhar@utexas.edu>
+Date:   Fri Jun 12 17:09:06 2015 -0500
+
+    created SphereCollatz -- passing tests on sphere
+
+commit 162ac2143578037565e2404521260e82108fe3c3
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Tue Jun 9 20:59:51 2015 -0500
+
+    implemented the simplest solution
+
+commit 7215663561dc7b6f3fe60635f1318a3e6f50eacc
+Author: Fahad Khokhar <fkhokhar@utexas.edu>
+Date:   Tue Jun 9 19:58:59 2015 -0500
+
+    test run for Travis CI
+
+commit 6cfd4fc61995474af9ea3cfff4a8fb6556215402
+Author: Fahad Khokhar <fkhokhar@utexas.edu>
+Date:   Tue Jun 9 18:29:33 2015 -0500
+
+    copied the test repo files to my private repo and removed conflicts from merging
+
+commit 3d7e195b415f7abaa6edaa284c0136cc8e9f4adc
+Merge: 41680e4 f1ca9fa
+Author: فہد سمیر <fahad@wireless-10-147-218-90.public.utexas.edu>
+Date:   Tue Jun 9 17:52:36 2015 -0500
+
+    merged the two branches
+
+commit f1ca9fa16fce7d75c850489aa0e6ca20575852e4
+Author: Fahad Khokhar <fkhokhar@cs.utexas.edu>
+Date:   Tue Jun 9 17:29:43 2015 -0500
+
+    compiles on CS lab machines
+
+commit a433d5d08e76188feea4ec93fdad30d0eec5c7a0
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Tue Jun 9 15:50:43 2015 -0500
+
+    updated travis.yml
+
+commit dcf14da8f91bf87bd9207e89638776b0fec89ba9
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Tue Jun 9 14:37:02 2015 -0500
+
+    downloaded a fresh copy of the repo - for debugging Travis CI
+
+commit 1a09e5e8776cab376c8f9473acb6761e39eda6b0
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Mon Jun 8 22:28:59 2015 -0500
+
+    renamed gitignore
+
+commit 810de932d4149a7a3f32877430705bceeba3dde8
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Mon Jun 8 19:08:09 2015 -0500
+
+    added sudo:required to .travis.yml
+
+commit 41680e42d9ccd1945f252ce4e0a92845f44996ff
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Mon Jun 8 19:04:13 2015 -0500
+
+    updated makefile and travis.yml
+
+commit a6658f29e48ec0c91a0b82844ff6e385713ace86
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Mon Jun 8 18:46:07 2015 -0500
+
+    debugging Travis CI
+
+commit 54f1776209ddf84b823153e8729800f10549dbbf
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Mon Jun 8 18:37:41 2015 -0500
+
+    configuring Travis CI
+
+commit f52b12aa6b193fb9a4bcf17a7b2907b6b939f1ae
+Author: فہد سمیر <fahad@Fahads-MacBook-Pro.local>
+Date:   Sun Jun 7 17:38:32 2015 -0500
+
+    created the repository and downloaded the necessary files and closes #1
