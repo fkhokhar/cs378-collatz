@@ -1,0 +1,122 @@
+\hypertarget{_sphere_collatz_8c_09_09}{\section{\-Sphere\-Collatz.\-c++ \-File \-Reference}
+\label{_sphere_collatz_8c_09_09}\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}}
+}
+{\ttfamily \#include $<$cassert$>$}\*
+{\ttfamily \#include $<$iostream$>$}\*
+{\ttfamily \#include $<$sstream$>$}\*
+{\ttfamily \#include $<$string$>$}\*
+{\ttfamily \#include $<$utility$>$}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_sphere_collatz_8c_09_09_a8a6befd630ea1c2ab260266f7466540c}{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}~1000000
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+pair$<$ int, int $>$ \hyperlink{_sphere_collatz_8c_09_09_a2772f8a734aeab48332eb3b282f991ba}{collatz\-\_\-read} (const string \&s)
+\item 
+int \hyperlink{_sphere_collatz_8c_09_09_a0b0d3827a619c18aa4d96b8ee8b1c47d}{collatz\-\_\-eval} (int i, int j)
+\item 
+void \hyperlink{_sphere_collatz_8c_09_09_aeda0b7ea3e40e1e7487ccc436f33a559}{collatz\-\_\-print} (ostream \&w, int i, int j, int v)
+\item 
+void \hyperlink{_sphere_collatz_8c_09_09_a0ac646d2122741f9a9a52201bf9551cc}{collatz\-\_\-solve} (istream \&r, ostream \&w)
+\item 
+int \hyperlink{_sphere_collatz_8c_09_09_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_sphere_collatz_8c_09_09_ae32fc8849490fce1c4d8cf9c31bb2e07}{cache} \mbox{[}\hyperlink{_sphere_collatz_8c_09_09_a8a6befd630ea1c2ab260266f7466540c}{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{_sphere_collatz_8c_09_09_a8a6befd630ea1c2ab260266f7466540c}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E@{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}}
+\index{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E@{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}~1000000}}\label{_sphere_collatz_8c_09_09_a8a6befd630ea1c2ab260266f7466540c}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{_sphere_collatz_8c_09_09_a0b0d3827a619c18aa4d96b8ee8b1c47d}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!collatz\-\_\-eval@{collatz\-\_\-eval}}
+\index{collatz\-\_\-eval@{collatz\-\_\-eval}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{collatz\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf collatz\-\_\-eval} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)}}\label{_sphere_collatz_8c_09_09_a0b0d3827a619c18aa4d96b8ee8b1c47d}
+
+\begin{DoxyParams}{\-Parameters}
+{\em i} & the beginning of the range, inclusive \\
+\hline
+{\em j} & the end of the range, inclusive \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the max cycle length of the range \mbox{[}i, j\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{_sphere_collatz_8c_09_09_aeda0b7ea3e40e1e7487ccc436f33a559}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!collatz\-\_\-print@{collatz\-\_\-print}}
+\index{collatz\-\_\-print@{collatz\-\_\-print}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{collatz\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf collatz\-\_\-print} (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{w, }
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{v}
+\end{DoxyParamCaption}
+)}}\label{_sphere_collatz_8c_09_09_aeda0b7ea3e40e1e7487ccc436f33a559}
+print three ints 
+\begin{DoxyParams}{\-Parameters}
+{\em w} & an ostream \\
+\hline
+{\em i} & the beginning of the range, inclusive \\
+\hline
+{\em j} & the end of the range, inclusive \\
+\hline
+{\em v} & the max cycle length \\
+\hline
+\end{DoxyParams}
+\hypertarget{_sphere_collatz_8c_09_09_a2772f8a734aeab48332eb3b282f991ba}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!collatz\-\_\-read@{collatz\-\_\-read}}
+\index{collatz\-\_\-read@{collatz\-\_\-read}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{collatz\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}pair$<$int, int$>$ {\bf collatz\-\_\-read} (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{s}
+\end{DoxyParamCaption}
+)}}\label{_sphere_collatz_8c_09_09_a2772f8a734aeab48332eb3b282f991ba}
+read two ints 
+\begin{DoxyParams}{\-Parameters}
+{\em s} & a string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+a pair of ints, representing the beginning and end of a range, \mbox{[}i, j\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{_sphere_collatz_8c_09_09_a0ac646d2122741f9a9a52201bf9551cc}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!collatz\-\_\-solve@{collatz\-\_\-solve}}
+\index{collatz\-\_\-solve@{collatz\-\_\-solve}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{collatz\-\_\-solve}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf collatz\-\_\-solve} (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{r, }
+\item[{ostream \&}]{w}
+\end{DoxyParamCaption}
+)}}\label{_sphere_collatz_8c_09_09_a0ac646d2122741f9a9a52201bf9551cc}
+
+\begin{DoxyParams}{\-Parameters}
+{\em r} & an istream \\
+\hline
+{\em w} & an ostream \\
+\hline
+\end{DoxyParams}
+\hypertarget{_sphere_collatz_8c_09_09_ae66f6b31b5ad750f1fe042a706a4e3d4}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!main@{main}}
+\index{main@{main}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf main} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_sphere_collatz_8c_09_09_ae66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{_sphere_collatz_8c_09_09_ae32fc8849490fce1c4d8cf9c31bb2e07}{\index{\-Sphere\-Collatz.\-c++@{\-Sphere\-Collatz.\-c++}!cache@{cache}}
+\index{cache@{cache}!SphereCollatz.c++@{\-Sphere\-Collatz.\-c++}}
+\subsubsection[{cache}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf cache}\mbox{[}{\bf \-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E}\mbox{]}}}\label{_sphere_collatz_8c_09_09_ae32fc8849490fce1c4d8cf9c31bb2e07}

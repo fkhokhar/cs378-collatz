@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -77,8 +78,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">File List</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented files with brief descriptions:</div><table>
-  <tr><td class="indexkey"><b>Collatz.h</b> <a href="_collatz_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
+<div class="textblock">Here is a list of all files with brief descriptions:</div><table>
+  <tr><td class="indexkey"><a class="el" href="_collatz_8c_09_09.html">Collatz.c++</a></td><td class="indexvalue"></td></tr>
+  <tr><td class="indexkey"><a class="el" href="_collatz_8h.html">Collatz.h</a> <a href="_collatz_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
+  <tr><td class="indexkey"><a class="el" href="_run_collatz_8c_09_09.html">RunCollatz.c++</a></td><td class="indexvalue"></td></tr>
+  <tr><td class="indexkey"><a class="el" href="_sphere_collatz_8c_09_09.html">SphereCollatz.c++</a></td><td class="indexvalue"></td></tr>
+  <tr><td class="indexkey"><a class="el" href="_test_collatz_8c_09_09.html">TestCollatz.c++</a></td><td class="indexvalue"></td></tr>
 </table>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -86,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

@@ -1,0 +1,89 @@
+\hypertarget{_collatz_8h}{\section{\-Collatz.\-h \-File \-Reference}
+\label{_collatz_8h}\index{\-Collatz.\-h@{\-Collatz.\-h}}
+}
+{\ttfamily \#include $<$iostream$>$}\*
+{\ttfamily \#include $<$string$>$}\*
+{\ttfamily \#include $<$utility$>$}\*
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+pair$<$ int, int $>$ \hyperlink{_collatz_8h_a2772f8a734aeab48332eb3b282f991ba}{collatz\-\_\-read} (const string \&s)
+\item 
+int \hyperlink{_collatz_8h_a0b0d3827a619c18aa4d96b8ee8b1c47d}{collatz\-\_\-eval} (int i, int j)
+\item 
+void \hyperlink{_collatz_8h_aeda0b7ea3e40e1e7487ccc436f33a559}{collatz\-\_\-print} (ostream \&w, int i, int j, int v)
+\item 
+void \hyperlink{_collatz_8h_a0ac646d2122741f9a9a52201bf9551cc}{collatz\-\_\-solve} (istream \&r, ostream \&w)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{_collatz_8h_a0b0d3827a619c18aa4d96b8ee8b1c47d}{\index{\-Collatz.\-h@{\-Collatz.\-h}!collatz\-\_\-eval@{collatz\-\_\-eval}}
+\index{collatz\-\_\-eval@{collatz\-\_\-eval}!Collatz.h@{\-Collatz.\-h}}
+\subsubsection[{collatz\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf collatz\-\_\-eval} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)}}\label{_collatz_8h_a0b0d3827a619c18aa4d96b8ee8b1c47d}
+
+\begin{DoxyParams}{\-Parameters}
+{\em i} & the beginning of the range, inclusive \\
+\hline
+{\em j} & the end of the range, inclusive \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the max cycle length of the range \mbox{[}i, j\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{_collatz_8h_aeda0b7ea3e40e1e7487ccc436f33a559}{\index{\-Collatz.\-h@{\-Collatz.\-h}!collatz\-\_\-print@{collatz\-\_\-print}}
+\index{collatz\-\_\-print@{collatz\-\_\-print}!Collatz.h@{\-Collatz.\-h}}
+\subsubsection[{collatz\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf collatz\-\_\-print} (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{w, }
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{v}
+\end{DoxyParamCaption}
+)}}\label{_collatz_8h_aeda0b7ea3e40e1e7487ccc436f33a559}
+print three ints 
+\begin{DoxyParams}{\-Parameters}
+{\em w} & an ostream \\
+\hline
+{\em i} & the beginning of the range, inclusive \\
+\hline
+{\em j} & the end of the range, inclusive \\
+\hline
+{\em v} & the max cycle length \\
+\hline
+\end{DoxyParams}
+\hypertarget{_collatz_8h_a2772f8a734aeab48332eb3b282f991ba}{\index{\-Collatz.\-h@{\-Collatz.\-h}!collatz\-\_\-read@{collatz\-\_\-read}}
+\index{collatz\-\_\-read@{collatz\-\_\-read}!Collatz.h@{\-Collatz.\-h}}
+\subsubsection[{collatz\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}pair$<$int, int$>$ {\bf collatz\-\_\-read} (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{s}
+\end{DoxyParamCaption}
+)}}\label{_collatz_8h_a2772f8a734aeab48332eb3b282f991ba}
+read two ints 
+\begin{DoxyParams}{\-Parameters}
+{\em s} & a string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+a pair of ints, representing the beginning and end of a range, \mbox{[}i, j\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{_collatz_8h_a0ac646d2122741f9a9a52201bf9551cc}{\index{\-Collatz.\-h@{\-Collatz.\-h}!collatz\-\_\-solve@{collatz\-\_\-solve}}
+\index{collatz\-\_\-solve@{collatz\-\_\-solve}!Collatz.h@{\-Collatz.\-h}}
+\subsubsection[{collatz\-\_\-solve}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf collatz\-\_\-solve} (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{r, }
+\item[{ostream \&}]{w}
+\end{DoxyParamCaption}
+)}}\label{_collatz_8h_a0ac646d2122741f9a9a52201bf9551cc}
+
+\begin{DoxyParams}{\-Parameters}
+{\em r} & an istream \\
+\hline
+{\em w} & an ostream \\
+\hline
+\end{DoxyParams}
